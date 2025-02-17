@@ -7,82 +7,76 @@ using System.Runtime.CompilerServices;
 
 namespace COMP003A.EmployeeManagementSystem
 {
-    internal class Program
+    public class Employee
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Enter Employee ID: ");
-            Console.WriteLine("Enter First Name: ");
-            Console.WriteLine("Enter Middle Name (Press Enter to skip): ");
-            Console.WriteLine("Enter Last Name: ");
-            Console.WriteLine("Enter Salary: ");
+        private string _employeeID;  
+        private string _firstName;
+        private string _middleName;
+        private string _lastName;
+        private string _salary;
 
-            Console.WriteLine("Employee Created Successfully!");
-
-            Console.WriteLine("Employee ID: ");
-            Console.WriteLine("Name: ");
-            Console.WriteLine("Salary: ");
-
-            Console.WriteLine("Department: ");
-            Console.WriteLine("Details: ");
-            Console.WriteLine("Performing HR operations... ");
-
-            Console.WriteLine("Department: ");
-            Console.WriteLine("Details: ");
-            Console.WriteLine("Performing IT operations... ");
-        }
-        class EmployeeID 
-        {
-            private int employeeID;
-
-            public int EmployyeeID
-            {
-                get { return EmployyeeID; }
-                set { if (value>= 0) EmployyeeID = value; }
-            }
+        public Employee(string employeeID, string firstName, string middleName, string lastName, string salary) 
+        { 
+            _employeeID = employeeID; //Raed-only
+            _firstName = firstName;
+            _middleName = middleName;
+            _lastName = lastName;
+            _salary = salary;
         }
 
-        class Firstname
-        {
-            private string firstName;
+        public string EmployeeID { get { return _employeeID; } }
 
-            public string FirstName
-            {
-                get { return firstName; }
-            }
+        public string FirstName { get { return _firstName; } set {
+                if (string.IsNullOrWhiteSpace(value)) new Exception ("Cannot be empty"); _firstName = value; 
+            } }
+
+        public string MiddleName { get { return _middleName; } set {
+                if (string.IsNullOrWhiteSpace(value)) new Exception("Cannot be empty"); _middleName = value;
+            } }
+        public String LastName { get { return _lastName; } set {
+                if (string.IsNullOrWhiteSpace(value)) new Exception("Cannot be empty"); _lastName = value;
+            } }
+
+        public double salary { get { return salary; } set {
+                if (value <= 0) new Exception("salary has to be bigger than zero"); 
+            } }
+
+        public void ShowAllName()
+        { 
+            if (string.IsNullOrWhiteSpace(_firstName))
+                Console.WriteLine ($"All Name: {FirstName}, {MiddleName}, {LastName}");
         }
 
-        class MiddleName
+        public void ShowAllEmployeeinfo() 
         {
-            private string middleName;
-
-            public string MiddleNamee
-            {
-                get { return middleName; }
-            }
+            Console.WriteLine("=================");
+            Console.WriteLine($"Employee Id: {EmployeeID}");
+            ShowAllName();
+            Console.WriteLine($"salary: {salary}");
+            Console.WriteLine("=================");
         }
 
-        class Lastname 
+        static void Main()
         {
-            private string lastName;
+            Employee one = new Employee("Employee1", "Josephine", "K", "Carrillo", "26440");
+            Employee two = new Employee("Employee2", "Oscar", "T", "Lopez", "19050");
 
-            public string LastName
-            {
-                get { return lastName; }
-            }
+            Console.WriteLine("=== Employee Records ===");
+            one.ShowAllEmployeeinfo();
+            two.ShowAllEmployeeinfo();
+
+            EmployeeHR hr = new EmployeeHR();
+            ITDepartment it = new ITDepartment();
+
+            Console.WriteLine("=== Department information ===");
+            hr = new EmployeeHR();
+            Console.WriteLine("hr.GetDepartmentDetails()");
+
+            it = new ITDepartment();
+            Console.WriteLine("it.GetDepartmentDetails()");
+
+
         }
-
-
-        class Salary
-        {
-            private double salary;
-
-            public double Salaryy
-            {
-                get { return salary; }
-                set { salary = value; }
-            }
-        }
-
     }
+
 }
